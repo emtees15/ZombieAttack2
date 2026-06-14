@@ -1,0 +1,52 @@
+[33mcommit d71d0bb916b210ff71ecce29251185e6ad32040b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: emtees15 <matpawlowski09@gmail.com>
+Date:   Sun Jun 14 01:19:40 2026 +0200
+
+    Quit button
+    
+    quit button is now working
+
+[33mcommit 44109ce5356ea0364979439fa0edf7959fbffe28[m[33m ([m[1;32mTitleScreen[m[33m)[m
+Author: emtees15 <matpawlowski09@gmail.com>
+Date:   Sun Jun 14 00:47:28 2026 +0200
+
+    Button logic
+    
+    - survival mode start button logic is implemented
+    - quit button logic implemented
+    
+    Next steps:
+    - add basic gameplay elements and logic in main Scene
+
+[33mcommit 01674791f5459dffee42bc075eae44163c58c107[m[33m ([m[1;31morigin/TitleScreen[m[33m)[m
+Author: emtees15 <matpawlowski09@gmail.com>
+Date:   Sun Jun 14 00:34:03 2026 +0200
+
+    Main Menu Project
+    
+    Background image added
+    buttons added
+    
+    ToDO: buttons logic in next step
+
+[33mcommit 53399ca5cf5ed1601aa873aa61c83b2ed4be5a37[m
+Author: emtees15 <matpawlowski09@gmail.com>
+Date:   Sat Jun 13 18:03:20 2026 +0200
+
+    MainMenuScreen
+    
+    New branch for main menu created
+
+[33mcommit 59f374b8afa5c8abc5eff33ed20909336607350c[m
+Author: emtees15 <matpawlowski09@gmail.com>
+Date:   Sat Jun 13 18:00:45 2026 +0200
+
+    Initial Commit
+    
+    Project Creation and Initial Setup
+
+[33mcommit d0032b171802a4e5956a6daf2446c3ab7c0803d7[m
+Author: emtees15 <matpawlowski09@gmail.com>
+Date:   Sat Jun 13 17:57:30 2026 +0200
+
+    Initial commit
