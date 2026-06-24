@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+[RequireComponent(typeof(CharacterController))]
 public abstract class Character : MonoBehaviour
 {
 
@@ -13,7 +14,7 @@ public abstract class Character : MonoBehaviour
     //Health
     public bool isAlive { get; protected set; }
 
-    [SerializeField] int maxHealth;
+    [SerializeField] float maxHealth;
     float m_currentHealth;
     public float currentHealth
     {
@@ -30,14 +31,16 @@ public abstract class Character : MonoBehaviour
     }
 
     //Movement 
+    protected CharacterController CharController;
     public bool isMoving { get; private set; }
-    float m_moveSpeed;
+    [SerializeField] float defaultSpeed = 5f;
+    [SerializeField] float m_moveSpeed;
     protected float moveSpeed
     {
         get => m_moveSpeed;
         set
         {
-            m_moveSpeed = Mathf.Max(value, 0);
+            m_moveSpeed = Mathf.Max(value, 0); // value min 0
 
             if (m_moveSpeed > 0) isMoving = true;
             else isMoving = false;
@@ -47,23 +50,36 @@ public abstract class Character : MonoBehaviour
 
     //References
     protected CapsuleCollider capsuleCollider;
+    protected Animator animator;
+    protected AudioSource audioSource;
+    [SerializeField] AudioClip moveClip;
+    [SerializeField] AudioClip dieClip;
+    [SerializeField] AudioClip getDmgClip;
+    [SerializeField] AudioClip healClip;
 
 
     //METHODS
     void Awake()
     {
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
+        CharController = GetComponent<CharacterController>();
+
+        moveSpeed = defaultSpeed;
+        audioSource.clip = moveClip;
         currentHealth = maxHealth;
         isAlive = true;
-        capsuleCollider = GetComponent<CapsuleCollider>();
+
         Init();
     }
 
-    protected virtual void Init() { }
+    protected abstract void Init();
 
     // Update is called once per frame
     void Update()
     {
-        if (isAlive) HandleMovement();
+        
         OnUpdate();
     }
 
@@ -71,22 +87,66 @@ public abstract class Character : MonoBehaviour
 
     public virtual void TakeDamage(float amount)
     {
+        if (!isAlive) return;
+
         this.currentHealth -= amount;
+        audioSource.PlayOneShot(getDmgClip);
     }
 
-    public virtual void ModifySpeed(float multiplier)
+    public virtual void Heal(float amount)
+    {
+        if (!isAlive) return;
+
+        this.currentHealth += amount;
+        audioSource.PlayOneShot(healClip);
+    }
+
+    public void ModifySpeed(float multiplier)
     {
         moveSpeed *= multiplier;
     }
+    public void ResetSpeed(float multiplier)
+    {
+        moveSpeed = defaultSpeed;
+    }
+
     protected virtual void Die()
     {
         if (!isAlive) return;
         isAlive = false;
-
+        audioSource.PlayOneShot(dieClip);
         OnDeath?.Invoke();
     }
 
-    protected abstract void HandleMovement();
+    public virtual void HandleMovement(Vector3 direction)
+    {
+        if (direction.magnitude > 0.1f)
+        {
+
+            if (isAlive)
+            {
+                isMoving = true;
+                CharController.Move(direction * m_moveSpeed * Time.deltaTime);
+                if (!audioSource.isPlaying) audioSource.Play();
+                animator.SetBool("isMoving", isMoving);
+                
+            }
+            
+        }
+        else
+        {
+            isMoving = false;
+            animator.SetBool("isMoving", isMoving);
+            if (audioSource.isPlaying) audioSource.Stop();
+            
+        }
+        animator.SetFloat("speed", direction.magnitude * m_moveSpeed);
+
+    }
+
+    public abstract void HandleRotation(Vector3 lookTarget);
+
+    public abstract void attack();
 
     public virtual void burn(float duration, float dmgPerSec)
     {
