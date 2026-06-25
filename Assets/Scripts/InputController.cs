@@ -49,6 +49,10 @@ public class InputController : Controller
 
     protected override void HandleActions()
     {
-        
+        if (input.Player.Attack.triggered) character.Attack();
+        if (input.Player.Interact.triggered) character.Interact();
+        if (input.Player.ChangeWeapon.triggered) character.ChangeWeapon();
+        if (input.Player.Melee.triggered) character.Melee();
+        if (input.Player.Reload.triggered) character.Reload();
     }
 }

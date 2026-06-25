@@ -25,6 +25,11 @@ public abstract class Controller : MonoBehaviour
 
         character.HandleRotation(SetLookDirection());
 
+        
+    }
+
+    private void Update()
+    {
         HandleActions();
     }
 
