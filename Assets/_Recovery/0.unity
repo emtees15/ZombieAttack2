@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: 630947620}
   - component: {fileID: 630947619}
   - component: {fileID: 630947624}
-  - component: {fileID: 630947627}
+  - component: {fileID: 630947623}
   - component: {fileID: 630947622}
   - component: {fileID: 630947625}
   - component: {fileID: 630947626}
@@ -625,6 +625,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c6a5cfed138f044a6ee09ad4ed4af7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputController
+--- !u!114 &630947623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630947617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 271e5c97f24085e4880d5fc71eca9634, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
+  maxHealth: 0
+  defaultSpeed: 5
+  m_moveSpeed: 0
+  moveClip: {fileID: 0}
+  dieClip: {fileID: 0}
+  getDmgClip: {fileID: 0}
+  healClip: {fileID: 0}
 --- !u!143 &630947624
 CharacterController:
   m_ObjectHideFlags: 0
@@ -769,25 +788,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &630947627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 630947617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c371a800ccba4e4ea6a46764475c491, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Human
-  maxHealth: 0
-  defaultSpeed: 5
-  m_moveSpeed: 0
-  moveClip: {fileID: 0}
-  dieClip: {fileID: 0}
-  getDmgClip: {fileID: 0}
-  healClip: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

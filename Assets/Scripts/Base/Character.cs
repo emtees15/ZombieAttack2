@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Controller))]
+[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(CapsuleCollider))]
 public abstract class Character : MonoBehaviour
 {
 
@@ -79,11 +83,8 @@ public abstract class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        OnUpdate();
+       
     }
-
-    protected virtual void OnUpdate() { }
 
     public virtual void TakeDamage(float amount)
     {
@@ -144,9 +145,23 @@ public abstract class Character : MonoBehaviour
 
     }
 
-    public abstract void HandleRotation(Vector3 lookTarget);
+    public virtual void HandleRotation(Vector3 direction)
+    {
+        if (direction.sqrMagnitude > 0.1f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-    public abstract void attack();
+            transform.rotation = targetRotation;
+        }
+    }
+
+    public abstract void Attack();
+    public abstract void Interact();
+    public abstract void Melee();
+
+    public abstract void Reload();
+
+    public abstract void ChangeWeapon();
 
     public virtual void burn(float duration, float dmgPerSec)
     {
@@ -175,4 +190,6 @@ public abstract class Character : MonoBehaviour
 
         OnResurrection?.Invoke();
     }
+
+    
 }
